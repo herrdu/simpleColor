@@ -15,7 +15,7 @@
         obj.style.height = option.height + 'px';
         obj.style.width = option.width + 'px';
 
-        var innerDom = '<input type="color" style="position:absolute; width:30%;height:100%;box-sizing: border-box;"><input type="text" style="width:100%; height:100%;box-sizing: border-box;padding-left:32%;">';
+        var innerDom = '<input type="color" style="position:absolute; width:30%;height:100%;box-sizing: border-box;" value="#ffffff"><input type="text" style="width:100%; height:100%;box-sizing: border-box;padding-left:32%;" value="#ffffff" data-old="#ffffff">';
         obj.innerHTML = innerDom;
 
         this.initColorChangeEvent(obj);
@@ -37,7 +37,10 @@
             var reg = /^#[A-Fa-f0-9]{6}/;
             if (reg.test(value)) {
                 obj.querySelector('[type=color]').value = value;
+                obj.querySelector('[type=text]').dataset.old = value;
             } else {
+                var oldV = obj.querySelector('[type=text]').dataset.old;
+                obj.querySelector('[type=text]').value = oldV;
                 console.log('数据格式出现问题，请重现校验');
             }
         });
